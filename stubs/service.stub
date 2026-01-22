@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\{{ model }};
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
+class {{ model }}Service
+{
+    public function __construct(
+        private readonly {{ model }} $model
+    ) {}
+
+    public function index(): LengthAwarePaginator
+    {
+        return $this->model
+            ->newQuery()
+            ->paginate(5);
+    }
+
+    public function store(array $dados): {{ model }}
+    {
+        return $this->model->create($dados);
+    }
+
+    public function update(string $id, array $dados): {{ model }}
+    {
+        $item = $this->model->find($id);
+
+        if (!$item) {
+            throw new \RuntimeException('{{ model }} não encontrado.');
+        }
+
+        $item->update($dados);
+
+        return $item->refresh();
+    }
+
+    public function delete(string $id): void
+    {
+        $item = $this->model->findOrFail($id);
+
+        $item->delete();
+    }
+}
