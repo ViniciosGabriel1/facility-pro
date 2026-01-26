@@ -41,7 +41,7 @@ class DentistaService
         $item = $this->model->find($id);
 
         if (!$item) {
-            throw new \RuntimeException('Dentista não encontrado.');
+            throw new DentistaNaoEncontradoException($id);
         }
 
         $item->update($dados);
@@ -51,7 +51,7 @@ class DentistaService
 
     public function delete(string $id): void
     {
-         $item = $this->model->find($id);
+        $item = $this->model->find($id);
 
         if (!$item) {
             throw new DentistaNaoEncontradoException($id);
