@@ -21,5 +21,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('clinicas', ClinicasController::class)->except('create','edit');
 
     Route::apiResource('dentistas', \App\Http\Controllers\DentistasController::class);
+    Route::apiResource('pacientes', \App\Http\Controllers\PacientesController::class);
 });
 
+
+
+Route::apiResource('servicos', \App\Http\Controllers\ServicosController::class);
