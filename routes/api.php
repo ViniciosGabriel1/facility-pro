@@ -22,8 +22,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('dentistas', \App\Http\Controllers\DentistasController::class);
     Route::apiResource('pacientes', \App\Http\Controllers\PacientesController::class);
+    Route::apiResource('servicos', \App\Http\Controllers\ServicosController::class);
 });
 
 
 
-Route::apiResource('servicos', \App\Http\Controllers\ServicosController::class);
+
