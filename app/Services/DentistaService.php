@@ -16,7 +16,6 @@ class DentistaService
     {
         return $this->model
             ->with(['user'])
-            ->newQuery()
             ->paginate(5);
     }
 

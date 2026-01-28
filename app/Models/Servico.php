@@ -6,32 +6,34 @@ use App\Models\Traits\BelongsToClinica;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Paciente extends Model
+class Servico extends Model
 {
-    use HasFactory;
     use BelongsToClinica;
+    use HasFactory;
 
-    protected $table = 'pacientes';
+    protected $table = 'servicos';
 
     protected $fillable = [
         'clinica_id',
         'nome',
-        'telefone',
-        'cpf',
-        'observacoes',
+        'descricao',
+        'valor_base',
+        'tempo_medio_minutos',
         'ativo',
     ];
 
     protected $casts = [
         'ativo' => 'boolean',
+        'tempo_medio_minutos' => 'integer',
+        'valor_base' => 'decimal:2',
     ];
 
-    /*
-     * Relacionamentos
-     */
 
+    /**
+     * Clínica à qual o serviço pertence
+     */
     public function clinica()
     {
-        return $this->belongsTo(Clinicas::class);
+        return $this->belongsTo(Clinicas::class, 'clinica_id');
     }
 }
