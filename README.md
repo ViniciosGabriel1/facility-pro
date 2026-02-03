@@ -1,59 +1,288 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🦷 Facility Pro — Clínica Odontológica (Laravel API)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Facility Pro** é uma API REST desenvolvida em Laravel com foco em **boas práticas de arquitetura backend**, padronização de respostas e organização de regras de negócio para sistemas clínicos.
 
-## About Laravel
+Este projeto foi construído como laboratório prático para aplicar padrões reais utilizados em ambientes profissionais.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Objetivo
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Criar uma base sólida para um sistema de gestão odontológica, incluindo:
 
-## Learning Laravel
+- Clínicas  
+- Dentistas  
+- Secretárias (via perfil de usuário)  
+- Pacientes  
+- Serviços  
+- Consultas com múltiplos serviços vinculados  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+O foco principal foi desenvolver uma API consistente, escalável e bem estruturada.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 📦 Stack
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- PHP 8+  
+- Laravel 11  
+- MySQL  
+- Laravel Sanctum (Autenticação)  
+- Service Layer Pattern  
+- Domain Exceptions  
+- API Response Standard  
+- Pivot Tables (Many-to-Many)
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## ✅ Funcionalidades Implementadas
 
-## Contributing
+### CRUD Completo
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Clínicas  
+- Dentistas  
+- Pacientes  
+- Serviços  
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Consultas com múltiplos serviços (Pivot)
 
-## Security Vulnerabilities
+Uma consulta pode possuir vários serviços associados, armazenando dados adicionais:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- quantidade  
+- valor_unitario  
+- subtotal  
 
-## License
+#### Exemplo de retorno:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```json
+{
+  "servicos": [
+    {
+      "id": 2,
+      "nome": "Limpeza Dental",
+      "pivot": {
+        "quantidade": 2,
+        "valor_unitario": "150.00",
+        "subtotal": "300.00"
+      }
+    }
+  ]
+}
+
+```
+---
+
+## 🔐 Autenticação
+
+A API utiliza **Laravel Sanctum** para autenticação via token:
+
+- Login  
+- Logout  
+- Rotas protegidas com middleware `auth:sanctum`
+
+---
+
+## 🧱 Arquitetura do Projeto
+
+O projeto segue uma separação clara de responsabilidades.
+
+---
+
+### Controllers (Camada fina)
+
+Controllers lidam apenas com:
+
+- Validação via FormRequest  
+- Chamada do Service  
+- Retorno padronizado
+
+
+Exemplo:
+
+return ApiResponse::success(
+    $clinica,
+    'Clínica criada com sucesso.',
+    201
+);
+
+### Service Layer (Regra de Negócio)
+
+Toda regra de domínio fica concentrada em:
+
+App\Services\
+
+Responsabilidades típicas:
+
+- validação de clínica ativa
+- atualização controlada
+- criação de consultas com pivot
+- regras futuras de negócio
+
+### ⚠️ Tratamento Profissional de Erros
+
+O projeto implementa um padrão baseado em Domain Exceptions.
+DomainException Base
+
+abstract class DomainException extends Exception
+{
+    abstract public function status(): int;
+    abstract public function keyCode(): string;
+
+    public function payload(): array
+    {
+        return [];
+    }
+}
+
+Exemplo de Exceção
+
+class ClinicaInativaException extends DomainException
+{
+    public function status(): int
+    {
+        return 403;
+    }
+
+    public function keyCode(): string
+    {
+        return 'CLINICA_INATIVA';
+    }
+}
+
+### Renderização Centralizada
+
+## Todas as exceções são tratadas no Handler:
+
+return response()->json([
+    'message' => $e->getMessage(),
+    'keyCode' => $e->keyCode(),
+    'errors'  => $e->payload(),
+], $e->status());
+
+### 📤 Padronização de Resposta da API
+
+## Todas as respostas seguem o mesmo contrato:
+
+{
+  "success": true,
+  "message": "Operação realizada com sucesso.",
+  "data": {},
+  "meta": {}
+}
+
+Paginação Padronizada
+
+"meta": {
+  "pagination": {
+    "current_page": 1,
+    "last_page": 5,
+    "total": 25,
+    "has_next": true
+  }
+}
+
+### 🏥 Multi-Tenancy Inicial (Por Clínica)
+
+## Todos os registros são vinculados via:
+
+    clinica_id
+
+Foi criada uma Trait reutilizável:
+BelongsToClinica
+
+Responsável por:
+
+- aplicar filtro global por clínica autenticada
+
+- preencher automaticamente o clinica_id ao criar registros
+
+⚙️ Automação com Stubs (Scaffolding Interno)
+
+Para acelerar a criação de módulos CRUD, foi implementado um sistema interno de stubs personalizados.
+
+Ele gera automaticamente:
+
+- Controllers
+
+- Services
+
+- Requests (Store/Update)
+
+- Exceptions de domínio
+
+- Estrutura padronizada de API
+
+📌 Exemplo de comando
+
+php artisan make:crud-api Servico
+
+📂 Estrutura gerada automaticamente
+
+app/
+- Http/Controllers/ServicoController.php
+- Services/ServicoService.php
+- Http/Requests/CriarServicoRequest.php
+- Http/Requests/AtualizarServicoRequest.php
+- Exceptions/ServicoNaoEncontradoException.php
+
+Benefícios
+
+- ✅ Desenvolvimento mais rápido 
+- ✅ Código consistente
+- ✅ Estrutura semelhante a projetos reais
+- ✅ Facilita expansão futura
+- ✅ Rotas Principais
+
+## ✅ Rotas Principais
+
+---
+
+### Clínicas
+
+| Método | Endpoint              | Descrição           |
+|--------|-----------------------|---------------------|
+| GET    | `/api/clinicas`       | Listagem paginada   |
+| POST   | `/api/clinicas`       | Criar clínica       |
+| PUT    | `/api/clinicas/{id}`  | Atualizar clínica   |
+| DELETE | `/api/clinicas/{id}`  | Remover clínica     |
+
+---
+
+### Consultas
+
+| Método | Endpoint          | Descrição                                |
+|--------|------------------|------------------------------------------|
+| POST   | `/api/consultas` | Criar consulta com serviços vinculados   |
+
+
+### 🧪 Próximos Passos (Ideias Futuras)
+
+    Agenda diária por dentista
+
+    Controle de fila e atendimento
+
+    Pagamentos e formas de cobrança
+
+    Painel para secretárias
+
+    Testes automatizados (Pest/PHPUnit)
+
+    Logs e auditoria clínica
+
+👨‍💻 Autor
+
+Projeto desenvolvido por Vinícios Oliveira
+Backend Developer — PHP | Laravel
+📄 Licença
+
+Projeto desenvolvido para fins educacionais e portfólio.
+
+
+---
+
+Se quiser, eu posso também:
+
+✅ criar uma versão com badges (Laravel, PHP, Sanctum, etc.)  
+✅ adicionar seção de instalação e execução (`docker`, `.env`, migrations)  
+✅ deixar ele 100% padrão de projeto open-source profissional
