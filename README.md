@@ -202,39 +202,47 @@ Para acelerar a criação de módulos CRUD, foi implementado um sistema interno 
 
 Ele gera automaticamente:
 
-    Controllers
+Controllers
 
-    Services
+Services
 
-    Requests (Store/Update)
+Requests (Store/Update)
 
-    Exceptions de domínio
+Exceptions de domínio
 
-    Estrutura padronizada de API
+Estrutura padronizada de API
 
-Exemplo de comando
-
+📌 Exemplo de comando
 php artisan make:crud-api Servico
 
-Benefícios:
+📂 Estrutura gerada automaticamente
+app/
+ ├── Http/Controllers/ServicoController.php
+ ├── Services/ServicoService.php
+ ├── Http/Requests/CriarServicoRequest.php
+ ├── Http/Requests/AtualizarServicoRequest.php
+ ├── Exceptions/ServicoNaoEncontradoException.php
 
-    Desenvolvimento mais rápido
+Benefícios
 
-    Código consistente
+Desenvolvimento mais rápido
 
-    Estrutura semelhante a projetos reais
+Código consistente
 
-    Facilita expansão futura
+Estrutura semelhante a projetos reais
 
-📌 Rotas Principais
+Facilita expansão futura
+
+✅ Rotas Principais (corrigido)
 Clínicas
 Método	Endpoint	Descrição
 GET	/api/clinicas	Listagem paginada
 POST	/api/clinicas	Criar clínica
-PUT	/api/clinicas/{id}	Atualizar
-DELETE	/api/clinicas/{id}	Remover
+PUT	/api/clinicas/{id}	Atualizar clínica
+DELETE	/api/clinicas/{id}	Remover clínica
 Consultas
 Método	Endpoint	Descrição
+POST	/api/consultas	Criar consulta com serviços vinculados
 POST	/api/consultas	Criar consulta com serviços pivot
 🧪 Próximos Passos (Ideias Futuras)
 
