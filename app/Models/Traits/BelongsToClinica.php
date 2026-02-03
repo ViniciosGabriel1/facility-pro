@@ -25,5 +25,7 @@ trait BelongsToClinica
                 $model->clinica_id = auth()->user()->clinica_id;
             }
         });
+
+        
     }
 }
