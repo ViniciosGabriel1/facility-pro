@@ -70,6 +70,7 @@ Uma consulta pode possuir vários serviços associados, armazenando dados adicio
   ]
 }
 
+```
 ---
 
 ## 🔐 Autenticação
@@ -105,7 +106,7 @@ return ApiResponse::success(
     201
 );
 
-Service Layer (Regra de Negócio)
+### Service Layer (Regra de Negócio)
 
 Toda regra de domínio fica concentrada em:
 
@@ -113,15 +114,12 @@ App\Services\
 
 Responsabilidades típicas:
 
-    validação de clínica ativa
+- validação de clínica ativa
+- atualização controlada
+- criação de consultas com pivot
+- regras futuras de negócio
 
-    atualização controlada
-
-    criação de consultas com pivot
-
-    regras futuras de negócio
-
-⚠️ Tratamento Profissional de Erros
+### ⚠️ Tratamento Profissional de Erros
 
 O projeto implementa um padrão baseado em Domain Exceptions.
 DomainException Base
@@ -152,9 +150,9 @@ class ClinicaInativaException extends DomainException
     }
 }
 
-Renderização Centralizada
+### Renderização Centralizada
 
-Todas as exceções são tratadas no Handler:
+## Todas as exceções são tratadas no Handler:
 
 return response()->json([
     'message' => $e->getMessage(),
@@ -162,9 +160,9 @@ return response()->json([
     'errors'  => $e->payload(),
 ], $e->status());
 
-📤 Padronização de Resposta da API
+### 📤 Padronização de Resposta da API
 
-Todas as respostas seguem o mesmo contrato:
+## Todas as respostas seguem o mesmo contrato:
 
 {
   "success": true,
@@ -184,9 +182,9 @@ Paginação Padronizada
   }
 }
 
-🏥 Multi-Tenancy Inicial (Por Clínica)
+### 🏥 Multi-Tenancy Inicial (Por Clínica)
 
-Todos os registros são vinculados via:
+## Todos os registros são vinculados via:
 
     clinica_id
 
@@ -195,9 +193,9 @@ BelongsToClinica
 
 Responsável por:
 
-    aplicar filtro global por clínica autenticada
+- aplicar filtro global por clínica autenticada
 
-    preencher automaticamente o clinica_id ao criar registros
+- preencher automaticamente o clinica_id ao criar registros
 
 ⚙️ Automação com Stubs (Scaffolding Interno)
 
@@ -205,15 +203,15 @@ Para acelerar a criação de módulos CRUD, foi implementado um sistema interno 
 
 Ele gera automaticamente:
 
-    Controllers
+- Controllers
 
-    Services
+- Services
 
-    Requests (Store/Update)
+- Requests (Store/Update)
 
-    Exceptions de domínio
+- Exceptions de domínio
 
-    Estrutura padronizada de API
+- Estrutura padronizada de API
 
 📌 Exemplo de comando
 
@@ -235,7 +233,7 @@ Benefícios
 ✅ Estrutura semelhante a projetos reais
 ✅ Facilita expansão futura
 ✅ Rotas Principais
-Clínicas
+### Clínicas
 Método	Endpoint	Descrição
 GET	/api/clinicas	Listagem paginada
 POST	/api/clinicas	Criar clínica
@@ -244,7 +242,7 @@ DELETE	/api/clinicas/{id}	Remover clínica
 Consultas
 Método	Endpoint	Descrição
 POST	/api/consultas	Criar consulta com serviços vinculados
-🧪 Próximos Passos (Ideias Futuras)
+### 🧪 Próximos Passos (Ideias Futuras)
 
     Agenda diária por dentista
 
