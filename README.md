@@ -1,6 +1,6 @@
 # 🦷 Facility Pro — Clínica Odontológica (Laravel API)
 
-Facility Pro é uma API REST desenvolvida em Laravel com foco em **boas práticas de arquitetura backend**, padronização de respostas e organização de regras de negócio para sistemas clínicos.
+**Facility Pro** é uma API REST desenvolvida em Laravel com foco em **boas práticas de arquitetura backend**, padronização de respostas e organização de regras de negócio para sistemas clínicos.
 
 Este projeto foi construído como laboratório prático para aplicar padrões reais utilizados em ambientes profissionais.
 
@@ -30,7 +30,7 @@ O foco principal foi desenvolver uma API consistente, escalável e bem estrutura
 - Service Layer Pattern  
 - Domain Exceptions  
 - API Response Standard  
-- Pivot Tables (Many-to-Many)  
+- Pivot Tables (Many-to-Many)
 
 ---
 
@@ -53,7 +53,7 @@ Uma consulta pode possuir vários serviços associados, armazenando dados adicio
 - valor_unitario  
 - subtotal  
 
-Exemplo de retorno:
+#### Exemplo de retorno:
 
 ```json
 {
@@ -87,11 +87,11 @@ Controllers (Camada fina)
 
 Controllers lidam apenas com:
 
-    validação via FormRequest
+    Validação via FormRequest
 
-    chamada do Service
+    Chamada do Service
 
-    retorno padronizado
+    Retorno padronizado
 
 Exemplo:
 
@@ -107,7 +107,7 @@ Toda regra de domínio fica concentrada em:
 
 App\Services\
 
-Exemplos de responsabilidades:
+Responsabilidades típicas:
 
     validação de clínica ativa
 
@@ -187,7 +187,6 @@ Todos os registros são vinculados via:
     clinica_id
 
 Foi criada uma Trait reutilizável:
-
 BelongsToClinica
 
 Responsável por:
@@ -202,20 +201,22 @@ Para acelerar a criação de módulos CRUD, foi implementado um sistema interno 
 
 Ele gera automaticamente:
 
-Controllers
+    Controllers
 
-Services
+    Services
 
-Requests (Store/Update)
+    Requests (Store/Update)
 
-Exceptions de domínio
+    Exceptions de domínio
 
-Estrutura padronizada de API
+    Estrutura padronizada de API
 
 📌 Exemplo de comando
+
 php artisan make:crud-api Servico
 
 📂 Estrutura gerada automaticamente
+
 app/
  ├── Http/Controllers/ServicoController.php
  ├── Services/ServicoService.php
@@ -225,15 +226,11 @@ app/
 
 Benefícios
 
-Desenvolvimento mais rápido
-
-Código consistente
-
-Estrutura semelhante a projetos reais
-
-Facilita expansão futura
-
-✅ Rotas Principais (corrigido)
+✅ Desenvolvimento mais rápido
+✅ Código consistente
+✅ Estrutura semelhante a projetos reais
+✅ Facilita expansão futura
+✅ Rotas Principais
 Clínicas
 Método	Endpoint	Descrição
 GET	/api/clinicas	Listagem paginada
@@ -243,7 +240,6 @@ DELETE	/api/clinicas/{id}	Remover clínica
 Consultas
 Método	Endpoint	Descrição
 POST	/api/consultas	Criar consulta com serviços vinculados
-POST	/api/consultas	Criar consulta com serviços pivot
 🧪 Próximos Passos (Ideias Futuras)
 
     Agenda diária por dentista
@@ -265,3 +261,12 @@ Backend Developer — PHP | Laravel
 📄 Licença
 
 Projeto desenvolvido para fins educacionais e portfólio.
+
+
+---
+
+Se quiser, eu posso também:
+
+✅ criar uma versão com badges (Laravel, PHP, Sanctum, etc.)  
+✅ adicionar seção de instalação e execução (`docker`, `.env`, migrations)  
+✅ deixar ele 100% padrão de projeto open-source profissional
