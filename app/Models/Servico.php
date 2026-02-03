@@ -36,4 +36,18 @@ class Servico extends Model
     {
         return $this->belongsTo(Clinicas::class, 'clinica_id');
     }
+
+    public function consultas()
+    {
+        return $this->belongsToMany(
+            Consulta::class,
+            'consulta_servico'
+        )
+            ->withPivot([
+                'quantidade',
+                'valor_unitario',
+                'subtotal'
+            ])
+            ->withTimestamps();
+    }
 }
