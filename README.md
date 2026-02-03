@@ -280,9 +280,3 @@ Projeto desenvolvido para fins educacionais e portfólio.
 
 
 ---
-
-Se quiser, eu posso também:
-
-✅ criar uma versão com badges (Laravel, PHP, Sanctum, etc.)  
-✅ adicionar seção de instalação e execução (`docker`, `.env`, migrations)  
-✅ deixar ele 100% padrão de projeto open-source profissional
