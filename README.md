@@ -70,28 +70,32 @@ Uma consulta pode possuir vários serviços associados, armazenando dados adicio
   ]
 }
 
-🔐 Autenticação
+---
 
-A API utiliza Laravel Sanctum para autenticação via token:
+## 🔐 Autenticação
 
-    Login
+A API utiliza **Laravel Sanctum** para autenticação via token:
 
-    Logout
+- Login  
+- Logout  
+- Rotas protegidas com middleware `auth:sanctum`
 
-    Rotas protegidas com middleware auth:sanctum
+---
 
-🧱 Arquitetura do Projeto
+## 🧱 Arquitetura do Projeto
 
 O projeto segue uma separação clara de responsabilidades.
-Controllers (Camada fina)
+
+---
+
+### Controllers (Camada fina)
 
 Controllers lidam apenas com:
 
-    Validação via FormRequest
+- Validação via FormRequest  
+- Chamada do Service  
+- Retorno padronizado
 
-    Chamada do Service
-
-    Retorno padronizado
 
 Exemplo:
 
