@@ -10,46 +10,48 @@ Este projeto foi construído como laboratório prático para aplicar padrões re
 
 Criar uma base sólida para um sistema de gestão odontológica, incluindo:
 
-- Clínicas
-- Dentistas
-- Secretárias (via perfil de usuário)
-- Pacientes
-- Serviços
-- Consultas com múltiplos serviços vinculados
+- Clínicas  
+- Dentistas  
+- Secretárias (via perfil de usuário)  
+- Pacientes  
+- Serviços  
+- Consultas com múltiplos serviços vinculados  
 
 O foco principal foi desenvolver uma API consistente, escalável e bem estruturada.
 
 ---
 
-## 🧱 Stack
+## 📦 Stack
 
-- PHP 8+
-- Laravel 11
-- MySQL
-- Laravel Sanctum (Autenticação)
-- Service Layer Pattern
-- Domain Exceptions
-- API Response Standard
-- Pivot Tables (Many-to-Many)
+- PHP 8+  
+- Laravel 11  
+- MySQL  
+- Laravel Sanctum (Autenticação)  
+- Service Layer Pattern  
+- Domain Exceptions  
+- API Response Standard  
+- Pivot Tables (Many-to-Many)  
 
 ---
 
-## 📌 Funcionalidades Implementadas
+## ✅ Funcionalidades Implementadas
 
-### ✅ CRUD Completo
+### CRUD Completo
 
-- Clínicas
-- Dentistas
-- Pacientes
-- Serviços
+- Clínicas  
+- Dentistas  
+- Pacientes  
+- Serviços  
 
-### ✅ Consultas com Pivot (Many-to-Many)
+---
+
+### Consultas com múltiplos serviços (Pivot)
 
 Uma consulta pode possuir vários serviços associados, armazenando dados adicionais:
 
-- quantidade
-- valor_unitario
-- subtotal
+- quantidade  
+- valor_unitario  
+- subtotal  
 
 Exemplo de retorno:
 
@@ -78,10 +80,10 @@ A API utiliza Laravel Sanctum para autenticação via token:
 
     Rotas protegidas com middleware auth:sanctum
 
-📦 Estrutura e Arquitetura
+🧱 Arquitetura do Projeto
 
-Este projeto utiliza separação clara de responsabilidades:
-Controller (Fino)
+O projeto segue uma separação clara de responsabilidades.
+Controllers (Camada fina)
 
 Controllers lidam apenas com:
 
@@ -105,13 +107,15 @@ Toda regra de domínio fica concentrada em:
 
 App\Services\
 
-Exemplo:
+Exemplos de responsabilidades:
 
-    validações de clínica ativa
+    validação de clínica ativa
 
     atualização controlada
 
-    criação de consulta com serviços pivot
+    criação de consultas com pivot
+
+    regras futuras de negócio
 
 ⚠️ Tratamento Profissional de Erros
 
@@ -148,13 +152,11 @@ Renderização Centralizada
 
 Todas as exceções são tratadas no Handler:
 
-$exceptions->renderable(function (DomainException $e) {
-    return response()->json([
-        'message' => $e->getMessage(),
-        'keyCode' => $e->keyCode(),
-        'errors'  => $e->payload(),
-    ], $e->status());
-});
+return response()->json([
+    'message' => $e->getMessage(),
+    'keyCode' => $e->keyCode(),
+    'errors'  => $e->payload(),
+], $e->status());
 
 📤 Padronização de Resposta da API
 
@@ -180,7 +182,7 @@ Paginação Padronizada
 
 🏥 Multi-Tenancy Inicial (Por Clínica)
 
-Os registros são sempre vinculados a uma clínica via:
+Todos os registros são vinculados via:
 
     clinica_id
 
@@ -188,17 +190,17 @@ Foi criada uma Trait reutilizável:
 
 BelongsToClinica
 
-Que aplica automaticamente:
+Responsável por:
 
-    filtro global por clínica autenticada
+    aplicar filtro global por clínica autenticada
 
-    preenchimento automático do clinica_id ao criar registros
+    preencher automaticamente o clinica_id ao criar registros
 
 ⚙️ Automação com Stubs (Scaffolding Interno)
 
-Para acelerar a criação de módulos CRUD dentro do projeto, foi implementado um sistema interno de stubs personalizados.
+Para acelerar a criação de módulos CRUD, foi implementado um sistema interno de stubs personalizados.
 
-Esses stubs permitem gerar automaticamente:
+Ele gera automaticamente:
 
     Controllers
 
@@ -210,29 +212,19 @@ Esses stubs permitem gerar automaticamente:
 
     Estrutura padronizada de API
 
-Exemplo de comando customizado
+Exemplo de comando
 
 php artisan make:crud-api Servico
 
-Esse comando gera a estrutura base seguindo o padrão adotado no projeto:
-
-    Controller fino
-
-    Service com regra de negócio
-
-    Requests com validação
-
-    Exceptions padronizadas com keyCode
-
-Benefícios
+Benefícios:
 
     Desenvolvimento mais rápido
 
-    Código previsível e consistente
+    Código consistente
 
-    Estrutura semelhante a sistemas reais em produção
+    Estrutura semelhante a projetos reais
 
-    Facilita expansão futura do sistema
+    Facilita expansão futura
 
 📌 Rotas Principais
 Clínicas
@@ -243,7 +235,7 @@ PUT	/api/clinicas/{id}	Atualizar
 DELETE	/api/clinicas/{id}	Remover
 Consultas
 Método	Endpoint	Descrição
-POST	/api/consultas	Criar consulta com serviços
+POST	/api/consultas	Criar consulta com serviços pivot
 🧪 Próximos Passos (Ideias Futuras)
 
     Agenda diária por dentista
@@ -261,7 +253,7 @@ POST	/api/consultas	Criar consulta com serviços
 👨‍💻 Autor
 
 Projeto desenvolvido por Vinícios Oliveira
-Estudante de ADS e desenvolvedor backend PHP/Laravel.
+Backend Developer — PHP | Laravel
 📄 Licença
 
-Projeto construído para fins educacionais e portfólio.
+Projeto desenvolvido para fins educacionais e portfólio.
