@@ -220,28 +220,42 @@ php artisan make:crud-api Servico
 📂 Estrutura gerada automaticamente
 
 app/
-- - Http/Controllers/ServicoController.php
-- - Services/ServicoService.php
-- - Http/Requests/CriarServicoRequest.php
-- - Http/Requests/AtualizarServicoRequest.php
-- - Exceptions/ServicoNaoEncontradoException.php
+- Http/Controllers/ServicoController.php
+- Services/ServicoService.php
+- Http/Requests/CriarServicoRequest.php
+- Http/Requests/AtualizarServicoRequest.php
+- Exceptions/ServicoNaoEncontradoException.php
 
 Benefícios
 
-✅ Desenvolvimento mais rápido
-✅ Código consistente
-✅ Estrutura semelhante a projetos reais
-✅ Facilita expansão futura
-✅ Rotas Principais
+- ✅ Desenvolvimento mais rápido 
+- ✅ Código consistente
+- ✅ Estrutura semelhante a projetos reais
+- ✅ Facilita expansão futura
+- ✅ Rotas Principais
+
+## ✅ Rotas Principais
+
+---
+
 ### Clínicas
-Método	Endpoint	Descrição
-GET	/api/clinicas	Listagem paginada
-POST	/api/clinicas	Criar clínica
-PUT	/api/clinicas/{id}	Atualizar clínica
-DELETE	/api/clinicas/{id}	Remover clínica
-Consultas
-Método	Endpoint	Descrição
-POST	/api/consultas	Criar consulta com serviços vinculados
+
+| Método | Endpoint              | Descrição           |
+|--------|-----------------------|---------------------|
+| GET    | `/api/clinicas`       | Listagem paginada   |
+| POST   | `/api/clinicas`       | Criar clínica       |
+| PUT    | `/api/clinicas/{id}`  | Atualizar clínica   |
+| DELETE | `/api/clinicas/{id}`  | Remover clínica     |
+
+---
+
+### Consultas
+
+| Método | Endpoint          | Descrição                                |
+|--------|------------------|------------------------------------------|
+| POST   | `/api/consultas` | Criar consulta com serviços vinculados   |
+
+
 ### 🧪 Próximos Passos (Ideias Futuras)
 
     Agenda diária por dentista
