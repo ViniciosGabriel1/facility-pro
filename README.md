@@ -220,11 +220,11 @@ php artisan make:crud-api Servico
 📂 Estrutura gerada automaticamente
 
 app/
- ├── Http/Controllers/ServicoController.php
- ├── Services/ServicoService.php
- ├── Http/Requests/CriarServicoRequest.php
- ├── Http/Requests/AtualizarServicoRequest.php
- ├── Exceptions/ServicoNaoEncontradoException.php
+- - Http/Controllers/ServicoController.php
+- - Services/ServicoService.php
+- - Http/Requests/CriarServicoRequest.php
+- - Http/Requests/AtualizarServicoRequest.php
+- - Exceptions/ServicoNaoEncontradoException.php
 
 Benefícios
 
